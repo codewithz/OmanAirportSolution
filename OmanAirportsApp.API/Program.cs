@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using OmanAirportsApp.API.Configurations;
 using OmanAirportsApp.API.Data;
 
@@ -7,6 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("OmanAirportDBConnection");
 builder.Services.AddDbContext<omanairportdbContext>(options => options.UseSqlServer(connectionString));
+
+
+
+builder.Services.AddIdentityCore<ApiUser>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<omanairportdbContext>();
+
+
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 

@@ -2,6 +2,7 @@
 using OmanAirportsApp.API.Data;
 using OmanAirportsApp.API.Models.Authors;
 using OmanAirportsApp.API.Models.Book;
+using OmanAirportsApp.API.Models.User;
 
 namespace OmanAirportsApp.API.Configurations
 {
@@ -23,7 +24,9 @@ namespace OmanAirportsApp.API.Configurations
             CreateMap<Book, BookDetailsDTO>()
                 .ForMember(q => q.AuthorName,
                 d => d.MapFrom(map => $"{map.Author.FirstName} {map.Author.LastName}"))
-                .ReverseMap();
+            .ReverseMap();
+
+            CreateMap<ApiUser, UserDTO>().ReverseMap();
         }
     }
 }
