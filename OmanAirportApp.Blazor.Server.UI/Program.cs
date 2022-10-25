@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using OmanAirportApp.Blazor.Server.UI.Provider;
+using OmanAirportApp.Blazor.Server.UI.Services;
 using OmanAirportApp.Blazor.Server.UI.Services.Authentication;
 using OmanAirportApp.Blazor.Server.UI.Services.Base;
 
@@ -17,6 +18,7 @@ builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddHttpClient<Client>(client => client.BaseAddress = new Uri("https://localhost:7238"));
 
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<ApiAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(p =>
                 p.GetRequiredService<ApiAuthenticationStateProvider>());

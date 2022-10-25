@@ -1,7 +1,16 @@
 ﻿@page "/authors/"
-@inject Client httpClient
+@inject IAuthorService authorService;
 
 <h3>Authors</h3>
+
+@if(response.Success == false)
+{
+    <div class="alert alert-danger">
+        <h4>@response.Message</h4>
+    </div>
+}
+else
+{
 
 @if (Authors == null)
 {
@@ -40,15 +49,20 @@ else
         </tbody>
     </table>
 }
+}
 
 
 
 @code {
 
     private List<AuthorReadOnlyDTO> Authors;
-
+    private Response<List<AuthorReadOnlyDTO>> response = new Response<List<AuthorReadOnlyDTO>> { Success = true };
     protected override async Task OnInitializedAsync()
     {
-        Authors = (await httpClient.AuthorsAllAsync()).ToList();
+        response = await authorService.Get();
+        if (response.Success)
+        {
+            Authors = response.Data;
+        }
     }
 }
