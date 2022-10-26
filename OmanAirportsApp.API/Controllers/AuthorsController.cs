@@ -129,7 +129,33 @@ namespace OmanAirportsApp.API.Controllers
                 return StatusCode(500, Messages.Error500Message);
             }
         }
-            private bool AuthorExists(int id)
+
+        // DELETE: api/Authors/5
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> DeleteAuthor(int id)
+        {
+            try
+            {
+                var author = await _context.Authors.FindAsync(id);
+                if (author == null)
+                {
+                   
+                    return NotFound();
+                }
+
+                _context.Authors.Remove(author);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+              
+                return StatusCode(500, Messages.Error500Message);
+            }
+        }
+        private bool AuthorExists(int id)
         {
             return _context.Authors.Any(e => e.Id == id);
         }
