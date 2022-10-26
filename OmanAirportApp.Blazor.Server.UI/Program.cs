@@ -2,6 +2,7 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
+using OmanAirportApp.Blazor.Server.UI.Configuration;
 using OmanAirportApp.Blazor.Server.UI.Provider;
 using OmanAirportApp.Blazor.Server.UI.Services;
 using OmanAirportApp.Blazor.Server.UI.Services.Authentication;
@@ -13,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddBlazoredLocalStorage();
+
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 
 builder.Services.AddHttpClient<Client>(client => client.BaseAddress = new Uri("https://localhost:7238"));

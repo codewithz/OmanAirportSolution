@@ -1,4 +1,5 @@
-﻿using Blazored.LocalStorage;
+﻿using AutoMapper;
+using Blazored.LocalStorage;
 using OmanAirportApp.Blazor.Server.UI.Services.Base;
 
 namespace OmanAirportApp.Blazor.Server.UI.Services
@@ -7,10 +8,12 @@ namespace OmanAirportApp.Blazor.Server.UI.Services
     {
         Client client;
         ILocalStorageService localStorage;
-        public AuthorService(Client client, ILocalStorageService localStorage) : base(client, localStorage)
+        IMapper mapper;
+        public AuthorService(Client client, ILocalStorageService localStorage,IMapper mapper) : base(client, localStorage)
         {
             this.client = client;
             this.localStorage = localStorage;
+            this.mapper = mapper;
         }
 
         public async Task<Response<int>> Create(AuthorCreateDTO author)
@@ -21,6 +24,23 @@ namespace OmanAirportApp.Blazor.Server.UI.Services
             {
                 await GetBearerToken();
                 await client.AuthorsPOSTAsync(author);
+            }
+            catch (ApiException exception)
+            {
+                response = ConvertApiExceptions<int>(exception);
+            }
+
+            return response;
+        }
+
+        public async Task<Response<int>> Edit(int id, AuthorUpdateDTO author)
+        {
+            Response<int> response = new();
+
+            try
+            {
+                await GetBearerToken();
+                await client.AuthorsPUTAsync(id, author);
             }
             catch (ApiException exception)
             {
@@ -47,6 +67,28 @@ namespace OmanAirportApp.Blazor.Server.UI.Services
             catch (ApiException exception)
             {
                 response = ConvertApiExceptions<List<AuthorReadOnlyDTO>>(exception);
+            }
+
+            return response;
+        }
+
+           public async Task<Response<AuthorUpdateDTO>> GetForUpdate(int id)
+        {
+            Response<AuthorUpdateDTO> response;
+
+            try
+            {
+                await GetBearerToken();
+                var data = await client.AuthorsGETAsync(id);
+                response = new Response<AuthorUpdateDTO>
+                {
+                    Data = mapper.Map<AuthorUpdateDTO>(data),
+                    Success = true
+                };
+            }
+            catch (ApiException exception)
+            {
+                response = ConvertApiExceptions<AuthorUpdateDTO>(exception);
             }
 
             return response;

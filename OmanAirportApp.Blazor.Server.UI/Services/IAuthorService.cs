@@ -6,5 +6,9 @@ namespace OmanAirportApp.Blazor.Server.UI.Services
     {
         Task<Response<List<AuthorReadOnlyDTO>>> Get();
         Task<Response<int>> Create(AuthorCreateDTO author);
+
+        Task<Response<int>> Edit(int id, AuthorUpdateDTO author);
+
+        Task<Response<AuthorUpdateDTO>> GetForUpdate(int id);
     }
 }
