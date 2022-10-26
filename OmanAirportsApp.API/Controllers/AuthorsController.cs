@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OmanAirportsApp.API.Data;
+using OmanAirportsApp.API.Models.Author;
 using OmanAirportsApp.API.Models.Authors;
 using OmanAirportsApp.API.Static;
 
@@ -15,7 +17,7 @@ namespace OmanAirportsApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   
     public class AuthorsController : ControllerBase
     {
         private readonly omanairportdbContext _context;
@@ -46,11 +48,14 @@ namespace OmanAirportsApp.API.Controllers
 
         // GET: api/Authors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AuthorReadOnlyDTO>> GetAuthor(int id)
+        public async Task<ActionResult<AuthorDetailsDTO>> GetAuthor(int id)
         {
             try
             {
-                var author = await _context.Authors.FindAsync(id);
+                var author = await _context.Authors
+                    .Include(q => q.Books)
+                    .ProjectTo<AuthorDetailsDTO>(mapper.ConfigurationProvider)
+                    .FirstOrDefaultAsync(q => q.Id == id);
 
                 if (author == null)
                 { 

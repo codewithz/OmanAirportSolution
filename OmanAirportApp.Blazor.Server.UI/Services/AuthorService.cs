@@ -72,7 +72,30 @@ namespace OmanAirportApp.Blazor.Server.UI.Services
             return response;
         }
 
-           public async Task<Response<AuthorUpdateDTO>> GetForUpdate(int id)
+        public async Task<Response<AuthorReadOnlyDTO>> Get(int id)
+        {
+            Response<AuthorReadOnlyDTO> response;
+
+            try
+            {
+                await GetBearerToken();
+                var data = await client.AuthorsGETAsync(id);
+                response = new Response<AuthorReadOnlyDTO>
+                {
+                    Data = data,
+                    Success = true
+                };
+            }
+            catch (ApiException exception)
+            {
+                response = ConvertApiExceptions<AuthorReadOnlyDTO>(exception);
+            }
+
+            return response;
+        }
+
+
+        public async Task<Response<AuthorUpdateDTO>> GetForUpdate(int id)
         {
             Response<AuthorUpdateDTO> response;
 
