@@ -13,6 +13,23 @@ namespace OmanAirportApp.Blazor.Server.UI.Services
             this.localStorage = localStorage;
         }
 
+        public async Task<Response<int>> Create(AuthorCreateDTO author)
+        {
+            Response<int> response = new();
+
+            try
+            {
+                await GetBearerToken();
+                await client.AuthorsPOSTAsync(author);
+            }
+            catch (ApiException exception)
+            {
+                response = ConvertApiExceptions<int>(exception);
+            }
+
+            return response;
+        }
+
         public async Task<Response<List<AuthorReadOnlyDTO>>> Get()
         {
             Response<List<AuthorReadOnlyDTO>> response;
