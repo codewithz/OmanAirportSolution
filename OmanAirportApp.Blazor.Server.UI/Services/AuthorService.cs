@@ -72,15 +72,15 @@ namespace OmanAirportApp.Blazor.Server.UI.Services
             return response;
         }
 
-        public async Task<Response<AuthorReadOnlyDTO>> Get(int id)
+        public async Task<Response<AuthorDetailsDTO>> Get(int id)
         {
-            Response<AuthorReadOnlyDTO> response;
+            Response<AuthorDetailsDTO> response;
 
             try
             {
                 await GetBearerToken();
                 var data = await client.AuthorsGETAsync(id);
-                response = new Response<AuthorReadOnlyDTO>
+                response = new Response<AuthorDetailsDTO>
                 {
                     Data = data,
                     Success = true
@@ -88,7 +88,7 @@ namespace OmanAirportApp.Blazor.Server.UI.Services
             }
             catch (ApiException exception)
             {
-                response = ConvertApiExceptions<AuthorReadOnlyDTO>(exception);
+                response = ConvertApiExceptions<AuthorDetailsDTO>(exception);
             }
 
             return response;
