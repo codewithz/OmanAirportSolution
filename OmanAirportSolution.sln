@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmanAirportsApp.API", "Oman
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmanAirportApp.Blazor.Server.UI", "OmanAirportApp.Blazor.Server.UI\OmanAirportApp.Blazor.Server.UI.csproj", "{C25B5427-3E27-4585-9D86-F5D8E5156657}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmanAirportApp.Blazor.WebAssembly", "OmanAirportApp.Blazor.WebAssembly\OmanAirportApp.Blazor.WebAssembly.csproj", "{D7AF5A10-8F00-4D50-9523-C7D1A370C5DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C25B5427-3E27-4585-9D86-F5D8E5156657}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C25B5427-3E27-4585-9D86-F5D8E5156657}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C25B5427-3E27-4585-9D86-F5D8E5156657}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7AF5A10-8F00-4D50-9523-C7D1A370C5DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7AF5A10-8F00-4D50-9523-C7D1A370C5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7AF5A10-8F00-4D50-9523-C7D1A370C5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7AF5A10-8F00-4D50-9523-C7D1A370C5DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
